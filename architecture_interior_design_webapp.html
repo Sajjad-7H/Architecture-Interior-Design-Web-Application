@@ -1,0 +1,1713 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --dark: #0E0E0E;
+    --dark2: #181818;
+    --dark3: #232323;
+    --white: #F5F2EE;
+    --muted: #8A8680;
+    --accent: #C9A96E;
+    --border: rgba(201,169,110,0.18);
+    --display: 'Cormorant Garamond', serif;
+    --body: 'DM Sans', sans-serif;
+  }
+
+  .app {
+    background: var(--dark);
+    color: var(--white);
+    font-family: var(--body);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+    background: rgba(14,14,14,0.97);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-img { width: 34px; height: 34px; object-fit: contain; display: none; }
+  .logo.has-logo .logo-img { display: block; }
+  .logo span { color: var(--white); font-weight: 300; }
+  .nav-links { display: flex; gap: 1.6rem; }
+  .nav-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-btn {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 0.45rem 1.2rem;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: var(--body);
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-btn:hover { opacity: 0.85; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 520px;
+    background: linear-gradient(135deg, #0E0E0E 0%, #1a1512 60%, #0E0E0E 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A96E' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-accent {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 38%;
+    background: var(--dark2);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img-placeholder {
+    width: 88%; height: 80%;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+    color: var(--muted);
+  }
+  .hero-img-placeholder i { font-size: 32px; color: var(--gold); opacity: 0.5; }
+  .hero-img-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero-content { padding: 0 2rem; max-width: 56%; position: relative; z-index: 1; }
+  .hero-tag {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 30px; height: 0.5px; background: var(--gold); }
+  .hero-title {
+    font-family: var(--display);
+    font-size: 3.2rem; font-weight: 300; line-height: 1.12;
+    margin-bottom: 1.2rem;
+    color: var(--white);
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1.8rem; max-width: 400px; }
+  .hero-actions { display: flex; gap: 12px; align-items: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    padding: 0.65rem 1.6rem; border: none;
+    font-family: var(--body); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 0.65rem 1.6rem; border: 0.5px solid var(--border);
+    font-family: var(--body); font-size: 11px; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 0.5px solid var(--border);
+    border-top: 0.5px solid var(--border);
+  }
+  .stat-item {
+    padding: 1.4rem 2rem;
+    border-right: 0.5px solid var(--border);
+    text-align: center;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 2rem; font-weight: 600; color: var(--gold);
+  }
+  .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+
+  /* SECTION */
+  .section { padding: 4rem 2rem; }
+  .section-header { margin-bottom: 2.5rem; }
+  .section-tag {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.7rem; display: flex; align-items: center; gap: 8px;
+  }
+  .section-tag::before { content: ''; display: block; width: 24px; height: 0.5px; background: var(--gold); }
+  .section-title {
+    font-family: var(--display);
+    font-size: 2.2rem; font-weight: 300; color: var(--white); line-height: 1.2;
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  /* PROJECTS GRID */
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .project-card {
+    background: var(--dark2);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { transform: scale(1.015); z-index: 2; }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .project-thumb {
+    height: 200px;
+    background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .project-thumb i { font-size: 36px; color: var(--gold); opacity: 0.3; }
+  .project-color-1 { background: linear-gradient(135deg, #1a1512 0%, #2a2018 100%); }
+  .project-color-2 { background: linear-gradient(135deg, #121519 0%, #182025 100%); }
+  .project-color-3 { background: linear-gradient(135deg, #151512 0%, #201f15 100%); }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: rgba(201,169,110,0.12);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-overlay i { font-size: 28px; color: var(--gold); }
+  .project-info { padding: 1.1rem 1.2rem; }
+  .project-cat { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .project-name { font-family: var(--display); font-size: 1.1rem; font-weight: 400; color: var(--white); }
+  .project-loc { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .service-card {
+    background: var(--dark2);
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .service-card:hover { background: var(--dark3); border-bottom-color: var(--gold); }
+  .service-card.active { background: var(--dark3); border-bottom-color: var(--gold); }
+  .service-icon { font-size: 28px; color: var(--gold); margin-bottom: 1rem; opacity: 0.8; }
+  .service-name { font-family: var(--display); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; color: var(--white); }
+  .service-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+  .service-gallery {
+    display: none;
+    margin-top: 1.5rem;
+    border: 0.5px solid var(--border);
+    background: var(--dark2);
+    padding: 1.2rem;
+    border-radius: 4px;
+  }
+  .service-gallery.active { display: block; }
+  .service-gallery-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .service-gallery-title { font-family: var(--display); font-size: 1.35rem; color: var(--gold); }
+  .service-gallery-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 0.25rem; }
+  .service-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .service-gallery-img {
+    min-height: 180px;
+    background: var(--dark3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    overflow: hidden;
+  }
+  .service-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .service-gallery-img i { font-size: 30px; color: var(--gold); opacity: 0.35; }
+
+  /* BLOG */
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .blog-card { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 2px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+  .blog-card:hover { border-color: var(--gold); }
+  .blog-thumb { height: 130px; background: var(--dark3); display: flex; align-items: center; justify-content: center; }
+  .blog-thumb i { font-size: 28px; color: var(--gold); opacity: 0.25; }
+  .blog-body { padding: 1rem 1.1rem; }
+  .blog-tag { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .blog-title { font-family: var(--display); font-size: 1rem; font-weight: 400; color: var(--white); line-height: 1.4; margin-bottom: 6px; }
+  .blog-meta { font-size: 10px; color: var(--muted); }
+
+  /* TESTIMONIAL */
+  .testimonials-wrap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .testimonial-card { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 2px; padding: 1.5rem; }
+  .quote-mark { font-family: var(--display); font-size: 3rem; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 0.5rem; }
+  .testimonial-text { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .testimonial-author { display: flex; align-items: center; gap: 10px; }
+  .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--dark3); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--gold); }
+  .author-name { font-size: 12px; font-weight: 500; color: var(--white); }
+  .author-title { font-size: 10px; color: var(--muted); }
+  .stars { color: var(--gold); font-size: 11px; letter-spacing: 2px; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .contact-form { background: var(--dark2); border: 0.5px solid var(--border); padding: 2rem; border-radius: 2px; }
+  .form-group { margin-bottom: 1rem; }
+  .form-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: block; }
+  .form-input {
+    width: 100%; background: var(--dark3); border: 0.5px solid var(--border);
+    color: var(--white); padding: 0.6rem 0.8rem; font-family: var(--body); font-size: 13px;
+    border-radius: 2px; outline: none; transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .info-item { display: flex; gap: 14px; align-items: flex-start; }
+  .info-icon { width: 40px; height: 40px; border: 0.5px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .info-icon i { color: var(--gold); font-size: 18px; }
+  .info-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .info-value { font-size: 13px; color: var(--white); }
+
+  /* ADMIN */
+  .admin-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 520px; }
+  .admin-sidebar { background: var(--dark2); border-right: 0.5px solid var(--border); padding: 1.5rem 0; }
+  .admin-logo { padding: 0 1.2rem 1.2rem; border-bottom: 0.5px solid var(--border); margin-bottom: 1rem; }
+  .admin-logo-text { font-family: var(--display); font-size: 1.1rem; color: var(--gold); }
+  .admin-logo-sub { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .admin-nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0.6rem 1.2rem; cursor: pointer;
+    font-size: 12px; color: var(--muted); transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .admin-nav-item:hover { color: var(--white); background: var(--dark3); }
+  .admin-nav-item.active { color: var(--gold); background: rgba(201,169,110,0.07); border-left-color: var(--gold); }
+  .admin-nav-item i { font-size: 16px; }
+  .admin-nav-section { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0.8rem 1.2rem 0.3rem; opacity: 0.5; }
+  .admin-main { background: var(--dark); padding: 1.5rem; overflow: auto; }
+  .admin-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .admin-page-title { font-family: var(--display); font-size: 1.5rem; font-weight: 400; color: var(--white); }
+  .admin-top-actions { display: flex; gap: 8px; align-items: center; }
+  .badge { background: var(--gold); color: var(--dark); font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 10px; }
+
+  /* METRIC CARDS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .metric-card { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 4px; padding: 1rem 1.1rem; }
+  .metric-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .metric-val { font-family: var(--display); font-size: 1.8rem; font-weight: 600; color: var(--white); }
+  .metric-change { font-size: 10px; margin-top: 4px; }
+  .metric-change.up { color: #6fcf97; }
+  .metric-change.down { color: #eb5757; }
+
+  /* CHARTS placeholder */
+  .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 1.5rem; }
+  .chart-box { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 4px; padding: 1.2rem; }
+  .chart-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 120px; }
+  .bar { flex: 1; background: var(--gold); opacity: 0.25; border-radius: 2px 2px 0 0; transition: opacity 0.2s; min-width: 0; }
+  .bar:hover { opacity: 0.7; }
+  .bar-labels { display: flex; gap: 8px; margin-top: 6px; }
+  .bar-label { flex: 1; font-size: 8px; color: var(--muted); text-align: center; }
+  .donut-wrap { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; height: 120px; }
+  .donut-legend { display: flex; flex-direction: column; gap: 6px; }
+  .donut-item { display: flex; align-items: center; gap: 8px; font-size: 10px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ADMIN TABLE */
+  .table-box { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .table-header { padding: 1rem 1.2rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .table-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.7rem 1.2rem; text-align: left; border-bottom: 0.5px solid var(--border); }
+  td { font-size: 12px; color: var(--white); padding: 0.7rem 1.2rem; border-bottom: 0.5px solid rgba(201,169,110,0.07); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(201,169,110,0.04); }
+  .status-pill { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 10px; }
+  .status-active { background: rgba(111,207,151,0.15); color: #6fcf97; }
+  .status-pending { background: rgba(242,201,76,0.15); color: #f2c94c; }
+  .status-draft { background: rgba(201,169,110,0.15); color: var(--gold); }
+
+  /* THEME BUILDER */
+  .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .theme-card { background: var(--dark2); border: 0.5px solid var(--border); border-radius: 4px; padding: 1.2rem; }
+  .theme-card-title { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .color-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .color-swatch { width: 28px; height: 28px; border-radius: 3px; border: 0.5px solid var(--border); flex-shrink: 0; }
+  .color-name { font-size: 11px; color: var(--white); flex: 1; }
+  .color-hex { font-size: 10px; color: var(--muted); font-family: monospace; }
+  .section-toggle { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); }
+  .section-toggle:last-child { border-bottom: none; }
+  .toggle-name { font-size: 12px; color: var(--white); }
+  .toggle-switch { width: 34px; height: 18px; background: var(--dark3); border-radius: 9px; border: 0.5px solid var(--border); cursor: pointer; position: relative; transition: background 0.2s; }
+  .toggle-switch.on { background: var(--gold); }
+  .toggle-knob { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--white); top: 2px; left: 2px; transition: left 0.2s; }
+  .toggle-switch.on .toggle-knob { left: 18px; }
+
+  /* FOOTER */
+  .footer { background: var(--dark2); border-top: 0.5px solid var(--border); padding: 3rem 2rem 1.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .footer-logo { font-family: var(--display); font-size: 1.3rem; color: var(--gold); margin-bottom: 0.8rem; }
+  .footer-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .footer-heading { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 6px; }
+  .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 0.5px solid var(--border); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 11px; color: var(--muted); }
+  .social-links { display: flex; gap: 12px; }
+  .social-btn { width: 32px; height: 32px; border: 0.5px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s; }
+  .social-btn:hover { border-color: var(--gold); }
+  .social-btn i { font-size: 15px; color: var(--muted); }
+
+  .admin-login-wrap {
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(circle at 30% 20%, rgba(201,169,110,0.12), transparent 32%), var(--dark);
+  }
+  .admin-login-card {
+    width: min(420px, 100%);
+    background: var(--dark2);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+  .admin-login-title {
+    font-family: var(--display);
+    color: var(--white);
+    font-size: 1.7rem;
+    margin-bottom: 0.4rem;
+  }
+  .admin-login-note { color: var(--muted); font-size: 12px; line-height: 1.6; margin-bottom: 1.2rem; }
+  .admin-alert {
+    display: none;
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 0.5px solid rgba(235,87,87,0.45);
+    color: #ff9a9a;
+    background: rgba(235,87,87,0.08);
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  .admin-user-pill {
+    border: 0.5px solid var(--border);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+  }
+  .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .editor-card {
+    background: var(--dark2);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+  }
+  .editor-card.full { grid-column: 1 / -1; }
+  .editor-card-title {
+    font-family: var(--display);
+    color: var(--gold);
+    font-size: 1.15rem;
+    margin-bottom: 0.9rem;
+  }
+  .editor-list { display: grid; gap: 0.85rem; }
+  .editor-item {
+    border: 0.5px solid var(--border);
+    border-radius: 5px;
+    padding: 0.85rem;
+    background: rgba(255,255,255,0.02);
+  }
+  .editor-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .editor-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+  .image-preview {
+    width: 100%;
+    min-height: 92px;
+    border: 0.5px dashed var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 0.45rem;
+    background: var(--dark3);
+  }
+  .image-preview img, .project-thumb img, .blog-thumb img, .hero-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .image-preview.logo-preview img { object-fit: contain; padding: 10px; }
+  .project-thumb.has-image i, .blog-thumb.has-image i, .hero-img-placeholder.has-image i, .hero-img-placeholder.has-image p { display: none; }
+  .admin-locked .admin-layout { display: none; }
+  .admin-unlocked .admin-login-wrap { display: none; }
+
+  .consultation-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.72);
+    padding: 1.5rem;
+    overflow: auto;
+  }
+  .consultation-modal.active { display: flex; align-items: center; justify-content: center; }
+  .consultation-panel {
+    width: min(760px, 100%);
+    background: var(--dark2);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem;
+  }
+  .consultation-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .consultation-title { font-family: var(--display); font-size: 1.6rem; color: var(--white); }
+  .consultation-sub { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 0.25rem; }
+  .modal-close { border: 0.5px solid var(--border); background: transparent; color: var(--gold); width: 32px; height: 32px; cursor: pointer; }
+  .consultation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+  .consultation-grid .full { grid-column: 1 / -1; }
+
+  .divider { height: 0.5px; background: var(--border); }
+</style>
+
+<div class="app" id="app">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="logo" id="site-logo"><img class="logo-img" alt=""><span class="logo-main">ARCVITA</span> <span class="logo-sub">Studio</span></div>
+    <div class="nav-links">
+      <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+      <a onclick="showPage('projects')" id="nav-projects">Projects</a>
+      <a onclick="showPage('services')" id="nav-services">Services</a>
+      <a onclick="showPage('blog')" id="nav-blog">Blog</a>
+      <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+      <a onclick="showPage('admin')" id="nav-admin">Admin</a>
+    </div>
+    <button class="nav-btn" onclick="openConsultation()">Book Consultation</button>
+  </nav>
+
+  <div class="consultation-modal" id="consultation-modal">
+    <form class="consultation-panel" onsubmit="submitConsultation(event)">
+      <div class="consultation-head">
+        <div>
+          <div class="consultation-title">Book Consultation</div>
+          <div class="consultation-sub">Fill the details below and our team will contact you for the next step.</div>
+        </div>
+        <button type="button" class="modal-close" onclick="closeConsultation()">X</button>
+      </div>
+      <div class="consultation-grid">
+        <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" required placeholder="Your full name"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" required placeholder="+880..."></div>
+        <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" required placeholder="your@email.com"></div>
+        <div class="form-group"><label class="form-label">Service</label><select class="form-input" id="consultation-service" required></select></div>
+        <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Preferred Time</label><input type="time" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Budget Range</label><input type="text" class="form-input" placeholder="Example: 5-10 lakh"></div>
+        <div class="form-group"><label class="form-label">Project Location</label><input type="text" class="form-input" placeholder="City / area"></div>
+        <div class="form-group full"><label class="form-label">Project Details</label><textarea class="form-input form-textarea" required placeholder="Tell us what you want to design..."></textarea></div>
+      </div>
+      <button class="btn-primary" style="width:100%; margin-top:1rem;">Submit Consultation</button>
+    </form>
+  </div>
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="page-home">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-tag">Award-winning Architecture Studio</div>
+        <h1 class="hero-title">Design That<br><em>Defines Spaces</em></h1>
+        <p class="hero-sub">We craft environments where architecture meets artistry — from residential masterpieces to iconic commercial landmarks.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('projects')">View Portfolio</button>
+          <button class="btn-outline" onclick="showPage('contact')">Get In Touch</button>
+        </div>
+      </div>
+      <div class="hero-accent">
+        <div class="hero-img-placeholder">
+          <i class="ti ti-building" aria-hidden="true"></i>
+          <p>Featured Project</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num">240+</div><div class="stat-label">Projects Completed</div></div>
+      <div class="stat-item"><div class="stat-num">18</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">32</div><div class="stat-label">Design Awards</div></div>
+      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+    </div>
+
+    <!-- FEATURED PROJECTS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Our Work</div>
+        <h2 class="section-title">Featured <em>Projects</em></h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card" onclick="showPage('projects')">
+          <div class="project-thumb project-color-1">
+            <i class="ti ti-building" aria-hidden="true"></i>
+            <div class="project-overlay"><i class="ti ti-eye" aria-hidden="true"></i></div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Residential</div>
+            <div class="project-name">The Meridian Residence</div>
+            <div class="project-loc">Dhaka, Bangladesh</div>
+          </div>
+        </div>
+        <div class="project-card" onclick="showPage('projects')">
+          <div class="project-thumb project-color-2">
+            <i class="ti ti-home" aria-hidden="true"></i>
+            <div class="project-overlay"><i class="ti ti-eye" aria-hidden="true"></i></div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Interior Design</div>
+            <div class="project-name">Azure Penthouse Suite</div>
+            <div class="project-loc">Chittagong, Bangladesh</div>
+          </div>
+        </div>
+        <div class="project-card" onclick="showPage('projects')">
+          <div class="project-thumb project-color-3">
+            <i class="ti ti-building-skyscraper" aria-hidden="true"></i>
+            <div class="project-overlay"><i class="ti ti-eye" aria-hidden="true"></i></div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Commercial</div>
+            <div class="project-name">Vertex Business Tower</div>
+            <div class="project-loc">Sylhet, Bangladesh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="section" style="padding-top:0">
+      <div class="section-header">
+        <div class="section-tag">What We Do</div>
+        <h2 class="section-title">Our <em>Services</em></h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="ti ti-pencil-ruler" aria-hidden="true"></i></div>
+          <div class="service-name">Architectural Design</div>
+          <div class="service-desc">Conceptual and technical design from foundation to facade.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="ti ti-lamp" aria-hidden="true"></i></div>
+          <div class="service-name">Interior Design</div>
+          <div class="service-desc">Curated interior environments tailored to lifestyle and purpose.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i></div>
+          <div class="service-name">3D Visualization</div>
+          <div class="service-desc">Photorealistic renders and walkthroughs before construction begins.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="ti ti-map" aria-hidden="true"></i></div>
+          <div class="service-name">Urban Planning</div>
+          <div class="service-desc">Master plans for sustainable and livable urban environments.</div>
+        </div>
+      </div>
+      <div class="service-gallery" id="home-service-gallery"></div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="section" style="padding-top:0">
+      <div class="section-header">
+        <div class="section-tag">Client Stories</div>
+        <h2 class="section-title">What Clients <em>Say</em></h2>
+      </div>
+      <div class="testimonials-wrap">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">ARCVITA transformed our vision into a living, breathing space. The attention to detail and the seamless process made us feel truly heard throughout.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RA</div>
+            <div>
+              <div class="author-name">Rahim Ahmed</div>
+              <div class="author-title">CEO, Landmark Group</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">The 3D visualization alone saved us months of guesswork. The team is professional, creative, and delivers beyond expectations every single time.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SH</div>
+            <div>
+              <div class="author-name">Sara Hossain</div>
+              <div class="author-title">Director, SkyLine Realty</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">ARCVITA Studio</div>
+          <p class="footer-desc">Award-winning architecture and interior design studio crafting exceptional spaces across Bangladesh and beyond.</p>
+        </div>
+        <div>
+          <div class="footer-heading">Services</div>
+          <ul class="footer-links">
+            <li><a>Architectural Design</a></li>
+            <li><a>Interior Design</a></li>
+            <li><a>3D Visualization</a></li>
+            <li><a>Urban Planning</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Company</div>
+          <ul class="footer-links">
+            <li><a>About Us</a></li>
+            <li><a>Our Team</a></li>
+            <li><a>Careers</a></li>
+            <li><a>Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a>Dhaka Office</a></li>
+            <li><a>hello@arcvita.com</a></li>
+            <li><a>+880 1700-000000</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 ARCVITA Studio. All rights reserved.</div>
+        <div class="social-links">
+          <div class="social-btn"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+          <div class="social-btn"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div>
+          <div class="social-btn"><i class="ti ti-brand-facebook" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PROJECTS PAGE -->
+  <div class="page" id="page-projects">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">All <em>Projects</em></h2>
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <button class="btn-primary" style="padding:0.4rem 1rem; font-size:10px;">All</button>
+        <button class="btn-outline" style="padding:0.4rem 1rem; font-size:10px;">Residential</button>
+        <button class="btn-outline" style="padding:0.4rem 1rem; font-size:10px;">Commercial</button>
+        <button class="btn-outline" style="padding:0.4rem 1rem; font-size:10px;">Interior</button>
+        <button class="btn-outline" style="padding:0.4rem 1rem; font-size:10px;">Landscape</button>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card"><div class="project-thumb project-color-1"><i class="ti ti-building" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Residential</div><div class="project-name">The Meridian Residence</div><div class="project-loc">Dhaka</div></div></div>
+        <div class="project-card"><div class="project-thumb project-color-2"><i class="ti ti-home" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Interior</div><div class="project-name">Azure Penthouse Suite</div><div class="project-loc">Chittagong</div></div></div>
+        <div class="project-card"><div class="project-thumb project-color-3"><i class="ti ti-building-skyscraper" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Commercial</div><div class="project-name">Vertex Business Tower</div><div class="project-loc">Sylhet</div></div></div>
+        <div class="project-card"><div class="project-thumb project-color-1"><i class="ti ti-trees" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Landscape</div><div class="project-name">Botanical Garden Center</div><div class="project-loc">Rajshahi</div></div></div>
+        <div class="project-card"><div class="project-thumb project-color-2"><i class="ti ti-bed" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Hospitality</div><div class="project-name">Grand Riviera Hotel</div><div class="project-loc">Cox's Bazar</div></div></div>
+        <div class="project-card"><div class="project-thumb project-color-3"><i class="ti ti-school" aria-hidden="true"></i><div class="project-overlay"><i class="ti ti-eye"></i></div></div><div class="project-info"><div class="project-cat">Institutional</div><div class="project-name">Knowledge Park Campus</div><div class="project-loc">Khulna</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES PAGE -->
+  <div class="page" id="page-services">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">What We Offer</div>
+        <h2 class="section-title">Our <em>Services</em></h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card"><div class="service-icon"><i class="ti ti-pencil-ruler" aria-hidden="true"></i></div><div class="service-name">Architectural Design</div><div class="service-desc">Conceptual and technical design solutions for every scale of project.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-lamp" aria-hidden="true"></i></div><div class="service-name">Interior Design</div><div class="service-desc">Spaces designed with intention, purpose, and a refined aesthetic eye.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-trees" aria-hidden="true"></i></div><div class="service-name">Landscape Design</div><div class="service-desc">Outdoor environments that extend the architecture into nature.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-map" aria-hidden="true"></i></div><div class="service-name">Urban Planning</div><div class="service-desc">Master plans for sustainable communities and urban futures.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i></div><div class="service-name">3D Visualization</div><div class="service-desc">Photorealistic renders that bring concepts to life before construction.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-tool" aria-hidden="true"></i></div><div class="service-name">Renovation</div><div class="service-desc">Thoughtful renovation strategies that honour the existing and elevate it.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div><div class="service-name">Consultancy</div><div class="service-desc">Expert guidance on construction quality, compliance, and cost control.</div></div>
+        <div class="service-card"><div class="service-icon"><i class="ti ti-writing" aria-hidden="true"></i></div><div class="service-name">Feasibility Studies</div><div class="service-desc">In-depth analysis to ensure every project is viable before launch.</div></div>
+      </div>
+      <div class="service-gallery" id="service-gallery"></div>
+    </div>
+  </div>
+
+  <!-- BLOG PAGE -->
+  <div class="page" id="page-blog">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Insights</div>
+        <h2 class="section-title">From the <em>Studio</em></h2>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-article" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Architecture</div><div class="blog-title">The Future of Sustainable Architecture in South Asia</div><div class="blog-meta">June 2025 · 5 min read</div></div></div>
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-lamp" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Interior</div><div class="blog-title">How Lighting Shapes the Mood of a Space</div><div class="blog-meta">May 2025 · 4 min read</div></div></div>
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Technology</div><div class="blog-title">Why Every Client Now Expects 3D Visualization</div><div class="blog-meta">May 2025 · 3 min read</div></div></div>
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-trees" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Landscape</div><div class="blog-title">Biophilic Design: Bringing Nature Indoors</div><div class="blog-meta">April 2025 · 6 min read</div></div></div>
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-map" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Urban Planning</div><div class="blog-title">Smart Cities and What Architects Must Know</div><div class="blog-meta">April 2025 · 7 min read</div></div></div>
+        <div class="blog-card"><div class="blog-thumb"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="blog-body"><div class="blog-tag">Trends</div><div class="blog-title">Minimalism Is Not Dead — It Has Evolved</div><div class="blog-meta">March 2025 · 4 min read</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div class="page" id="page-contact">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Reach Us</div>
+        <h2 class="section-title">Let's <em>Connect</em></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Interested In</label>
+            <select class="form-input">
+              <option>Architectural Design</option>
+              <option>Interior Design</option>
+              <option>3D Visualization</option>
+              <option>Consultation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-input form-textarea" placeholder="Tell us about your project..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;">Send Inquiry</button>
+        </div>
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+            <div><div class="info-label">Dhaka Office</div><div class="info-value">123 Gulshan Avenue, Dhaka 1212</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="ti ti-mail" aria-hidden="true"></i></div>
+            <div><div class="info-label">Email</div><div class="info-value">hello@arcvita.studio</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="ti ti-phone" aria-hidden="true"></i></div>
+            <div><div class="info-label">Phone</div><div class="info-value">+880 1700-000000</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+            <div><div class="info-label">Office Hours</div><div class="info-value">Sunday – Thursday, 9am – 6pm</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="ti ti-calendar" aria-hidden="true"></i></div>
+            <div><div class="info-label">Appointments</div><div class="info-value">Book a free 30-min consultation online</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PAGE -->
+  <div class="page admin-locked" id="page-admin">
+    <div class="admin-login-wrap" id="admin-login-wrap">
+      <form class="admin-login-card" onsubmit="adminLogin(event)">
+        <div class="admin-login-title">Admin Login</div>
+        <p class="admin-login-note">Protected admin area. Use the saved admin email and password to edit website sections and pictures.</p>
+        <div class="admin-alert" id="admin-login-error">Wrong email or password.</div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="admin-email" value="admin@gmail.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="admin-password" value="admin" autocomplete="current-password">
+        </div>
+        <button class="btn-primary" style="width:100%;">Login</button>
+      </form>
+    </div>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-logo">
+          <div class="admin-logo-text">ARCVITA</div>
+          <div class="admin-logo-sub">Admin Panel</div>
+        </div>
+        <div class="admin-nav-section">Main</div>
+        <div class="admin-nav-item active" onclick="showAdminTab('dashboard')"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard</div>
+        <div class="admin-nav-item" onclick="showAdminTab('content')"><i class="ti ti-edit" aria-hidden="true"></i> Content Editor</div>
+        <div class="admin-nav-item" onclick="showAdminTab('projects')"><i class="ti ti-building" aria-hidden="true"></i> Projects</div>
+        <div class="admin-nav-item" onclick="showAdminTab('blog')"><i class="ti ti-article" aria-hidden="true"></i> Blog Posts</div>
+        <div class="admin-nav-section">Management</div>
+        <div class="admin-nav-item" onclick="showAdminTab('inquiries')"><i class="ti ti-mail" aria-hidden="true"></i> Inquiries <span class="badge">5</span></div>
+        <div class="admin-nav-item" onclick="showAdminTab('appointments')"><i class="ti ti-calendar" aria-hidden="true"></i> Appointments</div>
+        <div class="admin-nav-item" onclick="showAdminTab('users')"><i class="ti ti-users" aria-hidden="true"></i> Users</div>
+        <div class="admin-nav-section">Settings</div>
+        <div class="admin-nav-item" onclick="showAdminTab('theme')"><i class="ti ti-palette" aria-hidden="true"></i> Theme Builder</div>
+        <div class="admin-nav-item" onclick="showAdminTab('seo')"><i class="ti ti-chart-bar" aria-hidden="true"></i> SEO Tools</div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="admin-main">
+
+        <!-- DASHBOARD -->
+        <div id="admin-dashboard">
+          <div class="admin-topbar">
+            <div class="admin-page-title">Dashboard</div>
+            <div class="admin-top-actions">
+              <span class="admin-user-pill">admin@gmail.com</span>
+              <button class="btn-outline" onclick="adminLogout()" style="font-size:10px; padding:0.35rem 0.9rem;">Logout</button>
+              <button class="btn-outline" style="font-size:10px; padding:0.35rem 0.9rem;">Export Report</button>
+              <button class="btn-primary" style="font-size:10px; padding:0.35rem 0.9rem;">+ New Project</button>
+            </div>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-card"><div class="metric-label">Total Projects</div><div class="metric-val">48</div><div class="metric-change up">+4 this month</div></div>
+            <div class="metric-card"><div class="metric-label">Inquiries</div><div class="metric-val">127</div><div class="metric-change up">+18 this week</div></div>
+            <div class="metric-card"><div class="metric-label">Active Users</div><div class="metric-val">2.4k</div><div class="metric-change up">+12%</div></div>
+            <div class="metric-card"><div class="metric-label">Revenue</div><div class="metric-val">৳8.2M</div><div class="metric-change down">-3% vs last mo.</div></div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">Monthly Inquiries</div>
+              <div class="bar-chart" id="barChart"></div>
+              <div class="bar-labels" id="barLabels"></div>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Projects by Category</div>
+              <div style="display:flex; align-items:center; gap:16px; height:120px;">
+                <svg width="90" height="90" viewBox="0 0 90 90" aria-hidden="true">
+                  <circle cx="45" cy="45" r="38" fill="none" stroke="#232323" stroke-width="14"/>
+                  <circle cx="45" cy="45" r="38" fill="none" stroke="#C9A96E" stroke-width="14" stroke-dasharray="96 142" stroke-dashoffset="0"/>
+                  <circle cx="45" cy="45" r="38" fill="none" stroke="#6fcf97" stroke-width="14" stroke-dasharray="56 142" stroke-dashoffset="-96"/>
+                  <circle cx="45" cy="45" r="38" fill="none" stroke="#378ADD" stroke-width="14" stroke-dasharray="38 142" stroke-dashoffset="-152"/>
+                  <circle cx="45" cy="45" r="38" fill="none" stroke="#eb5757" stroke-width="14" stroke-dasharray="48 142" stroke-dashoffset="-190"/>
+                </svg>
+                <div class="donut-legend">
+                  <div class="donut-item"><div class="dot" style="background:#C9A96E"></div>Residential 40%</div>
+                  <div class="donut-item"><div class="dot" style="background:#6fcf97"></div>Commercial 23%</div>
+                  <div class="donut-item"><div class="dot" style="background:#378ADD"></div>Interior 16%</div>
+                  <div class="donut-item"><div class="dot" style="background:#eb5757"></div>Other 21%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-box">
+            <div class="table-header">
+              <div class="table-title">Recent Inquiries</div>
+              <button class="btn-outline" style="font-size:10px; padding:0.3rem 0.8rem;">View All</button>
+            </div>
+            <table>
+              <thead><tr><th>Client</th><th>Service</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Rahim Ahmed</td><td>Architectural Design</td><td>2 Jun 2025</td><td><span class="status-pill status-pending">Pending</span></td></tr>
+                <tr><td>Sara Hossain</td><td>Interior Design</td><td>1 Jun 2025</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Karim Uddin</td><td>3D Visualization</td><td>30 May 2025</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Nadia Islam</td><td>Renovation</td><td>29 May 2025</td><td><span class="status-pill status-draft">Review</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CONTENT EDITOR -->
+        <div id="admin-content" style="display:none;">
+          <div class="admin-topbar">
+            <div class="admin-page-title">Content Editor</div>
+            <div class="admin-top-actions">
+              <button class="btn-outline" onclick="resetSiteContent()" style="font-size:10px; padding:0.35rem 0.9rem;">Reset</button>
+              <button class="btn-outline" onclick="downloadPublicHtml()" style="font-size:10px; padding:0.35rem 0.9rem;">Download HTML</button>
+              <button class="btn-primary" onclick="saveSiteContent()" style="font-size:10px; padding:0.35rem 0.9rem;">Save Changes</button>
+            </div>
+          </div>
+          <div id="contentEditor"></div>
+        </div>
+
+        <!-- PROJECTS ADMIN -->
+        <div id="admin-projects" style="display:none;">
+          <div class="admin-topbar">
+            <div class="admin-page-title">Projects</div>
+            <button class="btn-primary" style="font-size:10px; padding:0.35rem 0.9rem;">+ Add Project</button>
+          </div>
+          <div class="table-box">
+            <div class="table-header"><div class="table-title">All Projects</div></div>
+            <table>
+              <thead><tr><th>Name</th><th>Category</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td>The Meridian Residence</td><td>Residential</td><td>Dhaka</td><td><span class="status-pill status-active">Published</span></td><td><i class="ti ti-edit" style="cursor:pointer; color:var(--gold); font-size:15px;" aria-hidden="true"></i></td></tr>
+                <tr><td>Azure Penthouse Suite</td><td>Interior</td><td>Chittagong</td><td><span class="status-pill status-active">Published</span></td><td><i class="ti ti-edit" style="cursor:pointer; color:var(--gold); font-size:15px;" aria-hidden="true"></i></td></tr>
+                <tr><td>Vertex Business Tower</td><td>Commercial</td><td>Sylhet</td><td><span class="status-pill status-draft">Draft</span></td><td><i class="ti ti-edit" style="cursor:pointer; color:var(--gold); font-size:15px;" aria-hidden="true"></i></td></tr>
+                <tr><td>Grand Riviera Hotel</td><td>Hospitality</td><td>Cox's Bazar</td><td><span class="status-pill status-pending">Pending</span></td><td><i class="ti ti-edit" style="cursor:pointer; color:var(--gold); font-size:15px;" aria-hidden="true"></i></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- BLOG ADMIN -->
+        <div id="admin-blog" style="display:none;">
+          <div class="admin-topbar">
+            <div class="admin-page-title">Blog Posts</div>
+            <button class="btn-primary" style="font-size:10px; padding:0.35rem 0.9rem;">+ New Post</button>
+          </div>
+          <div class="table-box">
+            <div class="table-header"><div class="table-title">All Posts</div></div>
+            <table>
+              <thead><tr><th>Title</th><th>Category</th><th>Author</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>The Future of Sustainable Architecture</td><td>Architecture</td><td>Admin</td><td><span class="status-pill status-active">Published</span></td></tr>
+                <tr><td>How Lighting Shapes the Mood of a Space</td><td>Interior</td><td>Editor</td><td><span class="status-pill status-active">Published</span></td></tr>
+                <tr><td>Why Every Client Expects 3D Visualization</td><td>Technology</td><td>Admin</td><td><span class="status-pill status-draft">Draft</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- INQUIRIES -->
+        <div id="admin-inquiries" style="display:none;">
+          <div class="admin-topbar"><div class="admin-page-title">Inquiries</div></div>
+          <div class="table-box">
+            <div class="table-header"><div class="table-title">Contact Requests</div></div>
+            <table>
+              <thead><tr><th>Name</th><th>Email</th><th>Service</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Rahim Ahmed</td><td>rahim@mail.com</td><td>Architectural Design</td><td>2 Jun</td><td><span class="status-pill status-pending">Pending</span></td></tr>
+                <tr><td>Sara Hossain</td><td>sara@mail.com</td><td>Interior Design</td><td>1 Jun</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Karim Uddin</td><td>karim@mail.com</td><td>3D Visualization</td><td>30 May</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Nadia Islam</td><td>nadia@mail.com</td><td>Renovation</td><td>29 May</td><td><span class="status-pill status-draft">Review</span></td></tr>
+                <tr><td>Farhan Kabir</td><td>farhan@mail.com</td><td>Consultancy</td><td>28 May</td><td><span class="status-pill status-pending">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- APPOINTMENTS -->
+        <div id="admin-appointments" style="display:none;">
+          <div class="admin-topbar"><div class="admin-page-title">Appointments</div></div>
+          <div class="table-box">
+            <div class="table-header"><div class="table-title">Booked Appointments</div></div>
+            <table>
+              <thead><tr><th>Client</th><th>Service</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Rahim Ahmed</td><td>Consultation</td><td>5 Jun 2025</td><td>10:00 AM</td><td><span class="status-pill status-active">Confirmed</span></td></tr>
+                <tr><td>Sara Hossain</td><td>Interior Review</td><td>7 Jun 2025</td><td>2:00 PM</td><td><span class="status-pill status-pending">Pending</span></td></tr>
+                <tr><td>Karim Uddin</td><td>Site Visit</td><td>10 Jun 2025</td><td>9:30 AM</td><td><span class="status-pill status-draft">Review</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- USERS -->
+        <div id="admin-users" style="display:none;">
+          <div class="admin-topbar"><div class="admin-page-title">User Management</div></div>
+          <div class="table-box">
+            <div class="table-header"><div class="table-title">All Users</div></div>
+            <table>
+              <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Super Admin</td><td>admin@gmail.com</td><td><span class="status-pill status-active">Super Admin</span></td><td>Jan 2024</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Content Editor</td><td>editor@arcvita.com</td><td><span class="status-pill status-draft">Editor</span></td><td>Mar 2024</td><td><span class="status-pill status-active">Active</span></td></tr>
+                <tr><td>Rahim Ahmed</td><td>rahim@mail.com</td><td><span class="status-pill" style="background:rgba(201,169,110,0.1); color:var(--muted);">Client</span></td><td>May 2025</td><td><span class="status-pill status-active">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- THEME BUILDER -->
+        <div id="admin-theme" style="display:none;">
+          <div class="admin-topbar">
+            <div class="admin-page-title">Theme Builder</div>
+            <button class="btn-primary" onclick="saveSiteContent()" style="font-size:10px; padding:0.35rem 0.9rem;">Save Changes</button>
+          </div>
+          <div class="theme-grid">
+            <div class="theme-card">
+              <div class="theme-card-title">Brand Colors</div>
+              <div class="color-row"><div class="color-swatch" style="background:#C9A96E;"></div><div class="color-name">Primary</div><div class="color-hex">#C9A96E</div></div>
+              <div class="color-row"><div class="color-swatch" style="background:#0E0E0E;"></div><div class="color-name">Background</div><div class="color-hex">#0E0E0E</div></div>
+              <div class="color-row"><div class="color-swatch" style="background:#F5F2EE;"></div><div class="color-name">Text</div><div class="color-hex">#F5F2EE</div></div>
+              <div class="color-row"><div class="color-swatch" style="background:#181818;"></div><div class="color-name">Card Background</div><div class="color-hex">#181818</div></div>
+            </div>
+            <div class="theme-card">
+              <div class="theme-card-title">Section Visibility</div>
+              <div class="section-toggle"><div class="toggle-name">Hero Section</div><div class="toggle-switch on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+              <div class="section-toggle"><div class="toggle-name">Stats Bar</div><div class="toggle-switch on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+              <div class="section-toggle"><div class="toggle-name">Featured Projects</div><div class="toggle-switch on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+              <div class="section-toggle"><div class="toggle-name">Services Section</div><div class="toggle-switch on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+              <div class="section-toggle"><div class="toggle-name">Testimonials</div><div class="toggle-switch" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+              <div class="section-toggle"><div class="toggle-name">Blog Section</div><div class="toggle-switch on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+            </div>
+            <div class="theme-card">
+              <div class="theme-card-title">SEO Defaults</div>
+              <div class="form-group"><label class="form-label">Site Title</label><input type="text" class="form-input" value="ARCVITA Studio — Architecture & Design"></div>
+              <div class="form-group"><label class="form-label">Meta Description</label><textarea class="form-input form-textarea" style="min-height:70px;">Award-winning architecture and interior design studio in Bangladesh.</textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div id="admin-seo" style="display:none;">
+          <div class="admin-topbar"><div class="admin-page-title">SEO Tools</div></div>
+          <div class="theme-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="theme-card" style="grid-column: span 2;">
+              <div class="theme-card-title">Page SEO Settings</div>
+              <div class="form-group"><label class="form-label">Home Page Title</label><input type="text" class="form-input" value="ARCVITA Studio — Architecture & Interior Design Bangladesh"></div>
+              <div class="form-group"><label class="form-label">Meta Description</label><textarea class="form-input form-textarea" style="min-height:60px;">Award-winning architecture and interior design studio crafting exceptional spaces across Bangladesh.</textarea></div>
+              <div class="form-group"><label class="form-label">Focus Keywords</label><input type="text" class="form-input" value="architecture, interior design, Bangladesh, renovation, 3D visualization"></div>
+              <div style="display:flex; gap:8px; margin-top:0.5rem;">
+                <button class="btn-primary" style="font-size:10px; padding:0.4rem 1rem;">Save SEO</button>
+                <button class="btn-outline" style="font-size:10px; padding:0.4rem 1rem;">Generate Sitemap</button>
+                <button class="btn-outline" style="font-size:10px; padding:0.4rem 1rem;">Open Graph Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ADMIN_EMAIL = 'admin@gmail.com';
+const ADMIN_PASSWORD = 'admin';
+const CONTENT_KEY = 'arcvitaSiteContent';
+const SESSION_KEY = 'arcvitaAdminLoggedIn';
+
+const defaultSiteContent = {
+  brand: {
+    name: 'ARCVITA',
+    suffix: 'Studio',
+    logo: ''
+  },
+  theme: {
+    gold: '#C9A96E',
+    goldLight: '#E8D5B0',
+    dark: '#0E0E0E',
+    dark2: '#181818',
+    dark3: '#232323',
+    white: '#F5F2EE',
+    muted: '#8A8680'
+  },
+  visibility: {
+    hero: true,
+    stats: true,
+    featuredProjects: true,
+    homeServices: true,
+    testimonials: true,
+    projectsPage: true,
+    servicesPage: true,
+    blogPage: true,
+    contactPage: true
+  },
+  hero: {
+    tag: 'Award-winning Architecture Studio',
+    title: 'Design That',
+    highlight: 'Defines Spaces',
+    subtitle: 'We craft environments where architecture meets artistry - from residential masterpieces to iconic commercial landmarks.',
+    image: ''
+  },
+  stats: [
+    { value: '240+', label: 'Projects Completed' },
+    { value: '18', label: 'Years Experience' },
+    { value: '32', label: 'Design Awards' },
+    { value: '98%', label: 'Client Satisfaction' }
+  ],
+  projects: [
+    { category: 'Residential', name: 'The Meridian Residence', location: 'Dhaka, Bangladesh', icon: 'ti-building', image: '' },
+    { category: 'Interior Design', name: 'Azure Penthouse Suite', location: 'Chittagong, Bangladesh', icon: 'ti-home', image: '' },
+    { category: 'Commercial', name: 'Vertex Business Tower', location: 'Sylhet, Bangladesh', icon: 'ti-building-skyscraper', image: '' },
+    { category: 'Landscape', name: 'Botanical Garden Center', location: 'Rajshahi', icon: 'ti-trees', image: '' },
+    { category: 'Hospitality', name: 'Grand Riviera Hotel', location: "Cox's Bazar", icon: 'ti-bed', image: '' },
+    { category: 'Institutional', name: 'Knowledge Park Campus', location: 'Khulna', icon: 'ti-school', image: '' }
+  ],
+  services: [
+    { icon: 'ti-pencil-ruler', name: 'Architectural Design', description: 'Conceptual and technical design from foundation to facade.', gallery: ['', '', ''] },
+    { icon: 'ti-lamp', name: 'Interior Design', description: 'Curated interior environments tailored to lifestyle and purpose.', gallery: ['', '', ''] },
+    { icon: 'ti-3d-cube-sphere', name: '3D Visualization', description: 'Photorealistic renders and walkthroughs before construction begins.', gallery: ['', '', ''] },
+    { icon: 'ti-map', name: 'Urban Planning', description: 'Master plans for sustainable and livable urban environments.', gallery: ['', '', ''] },
+    { icon: 'ti-trees', name: 'Landscape Design', description: 'Outdoor environments that extend the architecture into nature.', gallery: ['', '', ''] },
+    { icon: 'ti-tool', name: 'Renovation', description: 'Thoughtful renovation strategies that honour the existing and elevate it.', gallery: ['', '', ''] },
+    { icon: 'ti-certificate', name: 'Consultancy', description: 'Expert guidance on construction quality, compliance, and cost control.', gallery: ['', '', ''] },
+    { icon: 'ti-writing', name: 'Feasibility Studies', description: 'In-depth analysis to ensure every project is viable before launch.', gallery: ['', '', ''] }
+  ],
+  testimonials: [
+    { avatar: 'RA', name: 'Rahim Ahmed', title: 'CEO, Landmark Group', text: 'ARCVITA transformed our vision into a living, breathing space. The attention to detail and the seamless process made us feel truly heard throughout.' },
+    { avatar: 'SH', name: 'Sara Hossain', title: 'Director, SkyLine Realty', text: 'The 3D visualization alone saved us months of guesswork. The team is professional, creative, and delivers beyond expectations every single time.' }
+  ],
+  blogs: [
+    { tag: 'Architecture', title: 'The Future of Sustainable Architecture in South Asia', meta: 'June 2025 - 5 min read', icon: 'ti-article', image: '' },
+    { tag: 'Interior', title: 'How Lighting Shapes the Mood of a Space', meta: 'May 2025 - 4 min read', icon: 'ti-lamp', image: '' },
+    { tag: 'Technology', title: 'Why Every Client Now Expects 3D Visualization', meta: 'May 2025 - 3 min read', icon: 'ti-3d-cube-sphere', image: '' },
+    { tag: 'Landscape', title: 'Biophilic Design: Bringing Nature Indoors', meta: 'April 2025 - 6 min read', icon: 'ti-trees', image: '' },
+    { tag: 'Urban Planning', title: 'Smart Cities and What Architects Must Know', meta: 'April 2025 - 7 min read', icon: 'ti-map', image: '' },
+    { tag: 'Trends', title: 'Minimalism Is Not Dead - It Has Evolved', meta: 'March 2025 - 4 min read', icon: 'ti-chart-line', image: '' }
+  ],
+  contact: {
+    address: '123 Gulshan Avenue, Dhaka 1212',
+    email: 'hello@arcvita.studio',
+    phone: '+880 1700-000000',
+    hours: 'Sunday - Thursday, 9am - 6pm',
+    appointments: 'Book a free 30-min consultation online',
+    footerDescription: 'Award-winning architecture and interior design studio crafting exceptional spaces across Bangladesh and beyond.'
+  }
+};
+
+let siteContent = loadSiteContent();
+normalizeSiteContent();
+
+function deepMerge(base, saved) {
+  if (!saved || typeof saved !== 'object') return structuredClone(base);
+  const merged = Array.isArray(base) ? [...base] : { ...base };
+  Object.keys(saved).forEach(key => {
+    if (Array.isArray(saved[key])) merged[key] = saved[key];
+    else if (saved[key] && typeof saved[key] === 'object' && base[key]) merged[key] = deepMerge(base[key], saved[key]);
+    else merged[key] = saved[key];
+  });
+  return merged;
+}
+
+function loadSiteContent() {
+  try {
+    return deepMerge(defaultSiteContent, JSON.parse(localStorage.getItem(CONTENT_KEY)));
+  } catch (error) {
+    return structuredClone(defaultSiteContent);
+  }
+}
+
+function normalizeSiteContent() {
+  siteContent.services.forEach(service => {
+    if (!Array.isArray(service.gallery)) service.gallery = ['', '', ''];
+    while (service.gallery.length < 3) service.gallery.push('');
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+}
+
+function getPath(path) {
+  return path.split('.').reduce((obj, part) => obj && obj[part], siteContent);
+}
+
+function setPath(path, value) {
+  const parts = path.split('.');
+  let obj = siteContent;
+  parts.slice(0, -1).forEach(part => obj = obj[part]);
+  obj[parts.at(-1)] = value;
+}
+
+function textInput(label, path, type = 'text') {
+  return `<div class="form-group"><label class="form-label">${label}</label><input type="${type}" class="form-input" data-bind="${path}" value="${escapeHtml(getPath(path))}"></div>`;
+}
+
+function colorInput(label, path) {
+  return `<div class="form-group"><label class="form-label">${label}</label><input type="color" class="form-input" data-bind="${path}" value="${escapeHtml(getPath(path))}"></div>`;
+}
+
+function textArea(label, path) {
+  return `<div class="form-group"><label class="form-label">${label}</label><textarea class="form-input form-textarea" data-bind="${path}">${escapeHtml(getPath(path))}</textarea></div>`;
+}
+
+function imageInput(label, path) {
+  const value = getPath(path);
+  return `<div class="form-group"><label class="form-label">${label}</label><input type="file" class="form-input" accept="image/*" onchange="handleImageUpload('${path}', this)"><div class="image-preview">${value ? `<img src="${value}" alt="">` : 'No picture selected'}</div></div>`;
+}
+
+function logoInput(label, path) {
+  const value = getPath(path);
+  return `<div class="form-group"><label class="form-label">${label}</label><input type="file" class="form-input" accept="image/*" onchange="handleImageUpload('${path}', this)"><div class="image-preview logo-preview">${value ? `<img src="${value}" alt="">` : 'No logo selected'}</div></div>`;
+}
+
+function renderProjectCard(project, index) {
+  const colorClass = `project-color-${(index % 3) + 1}`;
+  const image = project.image ? `<img src="${project.image}" alt="${escapeHtml(project.name)}">` : `<i class="ti ${escapeHtml(project.icon || 'ti-building')}" aria-hidden="true"></i>`;
+  return `<div class="project-card" onclick="showPage('projects')"><div class="project-thumb ${colorClass} ${project.image ? 'has-image' : ''}">${image}<div class="project-overlay"><i class="ti ti-eye" aria-hidden="true"></i></div></div><div class="project-info"><div class="project-cat">${escapeHtml(project.category)}</div><div class="project-name">${escapeHtml(project.name)}</div><div class="project-loc">${escapeHtml(project.location)}</div></div></div>`;
+}
+
+function renderServiceCard(service, index) {
+  return `<div class="service-card" onclick="showServiceGallery(${index})"><div class="service-icon"><i class="ti ${escapeHtml(service.icon || 'ti-pencil-ruler')}" aria-hidden="true"></i></div><div class="service-name">${escapeHtml(service.name)}</div><div class="service-desc">${escapeHtml(service.description)}</div></div>`;
+}
+
+function renderBlogCard(blog) {
+  const image = blog.image ? `<img src="${blog.image}" alt="${escapeHtml(blog.title)}">` : `<i class="ti ${escapeHtml(blog.icon || 'ti-article')}" aria-hidden="true"></i>`;
+  return `<div class="blog-card"><div class="blog-thumb ${blog.image ? 'has-image' : ''}">${image}</div><div class="blog-body"><div class="blog-tag">${escapeHtml(blog.tag)}</div><div class="blog-title">${escapeHtml(blog.title)}</div><div class="blog-meta">${escapeHtml(blog.meta)}</div></div></div>`;
+}
+
+function renderPublicSite() {
+  applyTheme();
+  renderBrand();
+  const hero = document.querySelector('#page-home .hero');
+  const stats = document.querySelector('#page-home .stats-bar');
+  const homeSections = document.querySelectorAll('#page-home > .section');
+  const projectsPage = document.getElementById('page-projects');
+  const servicesPage = document.getElementById('page-services');
+  const blogPage = document.getElementById('page-blog');
+  const contactPage = document.getElementById('page-contact');
+
+  hero.style.display = siteContent.visibility.hero ? 'flex' : 'none';
+  stats.style.display = siteContent.visibility.stats ? 'grid' : 'none';
+  if (homeSections[0]) homeSections[0].style.display = siteContent.visibility.featuredProjects ? 'block' : 'none';
+  if (homeSections[1]) homeSections[1].style.display = siteContent.visibility.homeServices ? 'block' : 'none';
+  if (homeSections[2]) homeSections[2].style.display = siteContent.visibility.testimonials ? 'block' : 'none';
+  projectsPage.style.display = siteContent.visibility.projectsPage ? '' : 'none';
+  servicesPage.style.display = siteContent.visibility.servicesPage ? '' : 'none';
+  blogPage.style.display = siteContent.visibility.blogPage ? '' : 'none';
+  contactPage.style.display = siteContent.visibility.contactPage ? '' : 'none';
+
+  document.querySelector('#page-home .hero-tag').textContent = siteContent.hero.tag;
+  document.querySelector('#page-home .hero-title').innerHTML = `${escapeHtml(siteContent.hero.title)}<br><em>${escapeHtml(siteContent.hero.highlight)}</em>`;
+  document.querySelector('#page-home .hero-sub').textContent = siteContent.hero.subtitle;
+  const heroImage = document.querySelector('#page-home .hero-img-placeholder');
+  heroImage.classList.toggle('has-image', Boolean(siteContent.hero.image));
+  heroImage.innerHTML = siteContent.hero.image ? `<img src="${siteContent.hero.image}" alt="Featured project">` : `<i class="ti ti-building" aria-hidden="true"></i><p>Featured Project</p>`;
+
+  stats.innerHTML = siteContent.stats.map(stat => `<div class="stat-item"><div class="stat-num">${escapeHtml(stat.value)}</div><div class="stat-label">${escapeHtml(stat.label)}</div></div>`).join('');
+  document.querySelector('#page-home .projects-grid').innerHTML = siteContent.projects.slice(0, 3).map(renderProjectCard).join('');
+  document.querySelector('#page-projects .projects-grid').innerHTML = siteContent.projects.map(renderProjectCard).join('');
+  document.querySelector('#page-home .services-grid').innerHTML = siteContent.services.slice(0, 4).map(renderServiceCard).join('');
+  document.querySelector('#page-services .services-grid').innerHTML = siteContent.services.map(renderServiceCard).join('');
+  renderConsultationServices();
+  document.querySelector('#page-blog .blog-grid').innerHTML = siteContent.blogs.map(renderBlogCard).join('');
+  document.querySelector('#page-home .testimonials-wrap').innerHTML = siteContent.testimonials.map(item => `<div class="testimonial-card"><div class="quote-mark">"</div><p class="testimonial-text">${escapeHtml(item.text)}</p><div class="testimonial-author"><div class="author-avatar">${escapeHtml(item.avatar)}</div><div><div class="author-name">${escapeHtml(item.name)}</div><div class="author-title">${escapeHtml(item.title)}</div><div class="stars">*****</div></div></div></div>`).join('');
+
+  const infoValues = document.querySelectorAll('#page-contact .info-value');
+  if (infoValues[0]) infoValues[0].textContent = siteContent.contact.address;
+  if (infoValues[1]) infoValues[1].textContent = siteContent.contact.email;
+  if (infoValues[2]) infoValues[2].textContent = siteContent.contact.phone;
+  if (infoValues[3]) infoValues[3].textContent = siteContent.contact.hours;
+  if (infoValues[4]) infoValues[4].textContent = siteContent.contact.appointments;
+  document.querySelector('.footer-desc').textContent = siteContent.contact.footerDescription;
+}
+
+function renderConsultationServices() {
+  const select = document.getElementById('consultation-service');
+  if (!select) return;
+  select.innerHTML = siteContent.services.map(service => `<option>${escapeHtml(service.name)}</option>`).join('');
+}
+
+function showServiceGallery(index) {
+  const service = siteContent.services[index];
+  if (!service) return;
+  showPage('services');
+  document.querySelectorAll('#page-services .service-card').forEach((card, cardIndex) => {
+    card.classList.toggle('active', cardIndex === index);
+  });
+  const gallery = document.getElementById('service-gallery');
+  if (!gallery) return;
+  const images = (service.gallery || []).filter(Boolean);
+  gallery.classList.add('active');
+  gallery.innerHTML = `
+    <div class="service-gallery-head">
+      <div>
+        <div class="service-gallery-title">${escapeHtml(service.name)}</div>
+        <div class="service-gallery-desc">${escapeHtml(service.description)}</div>
+      </div>
+      <button class="btn-outline" onclick="openConsultation('${escapeHtml(service.name)}')" style="font-size:10px; padding:0.4rem 0.9rem;">Book This Service</button>
+    </div>
+    <div class="service-gallery-grid">
+      ${[0, 1, 2].map(i => images[i] ? `<div class="service-gallery-img"><img src="${images[i]}" alt="${escapeHtml(service.name)} picture ${i + 1}"></div>` : `<div class="service-gallery-img"><i class="ti ${escapeHtml(service.icon || 'ti-photo')}" aria-hidden="true"></i></div>`).join('')}
+    </div>`;
+  gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openConsultation(serviceName = '') {
+  const modal = document.getElementById('consultation-modal');
+  const select = document.getElementById('consultation-service');
+  renderConsultationServices();
+  if (serviceName && select) select.value = serviceName;
+  modal?.classList.add('active');
+}
+
+function closeConsultation() {
+  document.getElementById('consultation-modal')?.classList.remove('active');
+}
+
+function submitConsultation(event) {
+  event.preventDefault();
+  alert('Consultation request submitted. We will contact you soon.');
+  event.currentTarget.reset();
+  closeConsultation();
+}
+
+function applyTheme() {
+  const root = document.documentElement;
+  root.style.setProperty('--gold', siteContent.theme.gold);
+  root.style.setProperty('--gold-light', siteContent.theme.goldLight);
+  root.style.setProperty('--dark', siteContent.theme.dark);
+  root.style.setProperty('--dark2', siteContent.theme.dark2);
+  root.style.setProperty('--dark3', siteContent.theme.dark3);
+  root.style.setProperty('--white', siteContent.theme.white);
+  root.style.setProperty('--muted', siteContent.theme.muted);
+  root.style.setProperty('--accent', siteContent.theme.gold);
+  root.style.setProperty('--border', hexToRgba(siteContent.theme.gold, 0.18));
+}
+
+function hexToRgba(hex, alpha) {
+  const clean = String(hex || '#C9A96E').replace('#', '');
+  const value = clean.length === 3 ? clean.split('').map(char => char + char).join('') : clean;
+  const number = parseInt(value, 16);
+  const r = (number >> 16) & 255;
+  const g = (number >> 8) & 255;
+  const b = number & 255;
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function renderBrand() {
+  document.title = `${siteContent.brand.name} ${siteContent.brand.suffix}`.trim();
+  document.querySelectorAll('.logo').forEach(logo => {
+    logo.classList.toggle('has-logo', Boolean(siteContent.brand.logo));
+    const img = logo.querySelector('.logo-img');
+    const main = logo.querySelector('.logo-main');
+    const sub = logo.querySelector('.logo-sub');
+    if (img) img.src = siteContent.brand.logo || '';
+    if (main) main.textContent = siteContent.brand.name;
+    if (sub) sub.textContent = siteContent.brand.suffix;
+  });
+  document.querySelectorAll('.footer-logo, .admin-logo-text').forEach(el => {
+    el.textContent = `${siteContent.brand.name} ${siteContent.brand.suffix}`.trim();
+  });
+}
+
+function collectEditorValues() {
+  document.querySelectorAll('#contentEditor [data-bind]').forEach(field => {
+    setPath(field.dataset.bind, field.type === 'checkbox' ? field.checked : field.value);
+  });
+}
+
+function renderContentEditor() {
+  const mount = document.getElementById('contentEditor');
+  if (!mount) return;
+  mount.innerHTML = `
+    <div class="editor-grid">
+      <div class="editor-card full">
+        <div class="editor-card-title">Section Protection and Visibility</div>
+        <div class="editor-row">
+          ${Object.entries(siteContent.visibility).map(([key, value]) => `<label class="section-toggle"><span class="toggle-name">${escapeHtml(key)}</span><input type="checkbox" data-bind="visibility.${key}" ${value ? 'checked' : ''}></label>`).join('')}
+        </div>
+      </div>
+      <div class="editor-card">
+        <div class="editor-card-title">Brand and Logo</div>
+        ${textInput('Brand Name', 'brand.name')}
+        ${textInput('Brand Suffix', 'brand.suffix')}
+        ${logoInput('Logo Picture', 'brand.logo')}
+      </div>
+      <div class="editor-card">
+        <div class="editor-card-title">Full Site Colors</div>
+        <div class="editor-row">
+          ${colorInput('Gold / Accent', 'theme.gold')}
+          ${colorInput('Light Accent', 'theme.goldLight')}
+          ${colorInput('Main Background', 'theme.dark')}
+          ${colorInput('Panel Background', 'theme.dark2')}
+          ${colorInput('Card Background', 'theme.dark3')}
+          ${colorInput('Text Color', 'theme.white')}
+          ${colorInput('Muted Text', 'theme.muted')}
+        </div>
+      </div>
+      <div class="editor-card">
+        <div class="editor-card-title">Hero Section</div>
+        ${textInput('Small Title', 'hero.tag')}
+        ${textInput('Main Title', 'hero.title')}
+        ${textInput('Gold Highlight', 'hero.highlight')}
+        ${textArea('Subtitle', 'hero.subtitle')}
+        ${imageInput('Hero Picture', 'hero.image')}
+      </div>
+      <div class="editor-card">
+        <div class="editor-card-title">Contact and Footer</div>
+        ${textInput('Address', 'contact.address')}
+        ${textInput('Email', 'contact.email', 'email')}
+        ${textInput('Phone', 'contact.phone')}
+        ${textInput('Office Hours', 'contact.hours')}
+        ${textInput('Appointments', 'contact.appointments')}
+        ${textArea('Footer Description', 'contact.footerDescription')}
+      </div>
+      <div class="editor-card full">
+        <div class="editor-card-title">Stats</div>
+        <div class="editor-list">${siteContent.stats.map((_, i) => `<div class="editor-item"><div class="editor-row">${textInput('Number', `stats.${i}.value`)}${textInput('Label', `stats.${i}.label`)}</div></div>`).join('')}</div>
+      </div>
+      <div class="editor-card full">
+        <div class="editor-card-title">Projects and Pictures</div>
+        <div class="editor-list">${siteContent.projects.map((_, i) => `<div class="editor-item"><div class="editor-row">${textInput('Category', `projects.${i}.category`)}${textInput('Project Name', `projects.${i}.name`)}${textInput('Location', `projects.${i}.location`)}</div>${textInput('Icon Class', `projects.${i}.icon`)}${imageInput('Project Picture', `projects.${i}.image`)}<div class="editor-actions"><button class="btn-outline" onclick="removeItem('projects', ${i})" style="font-size:10px; padding:0.35rem 0.9rem;">Remove</button></div></div>`).join('')}</div>
+        <div class="editor-actions"><button class="btn-primary" onclick="addProject()" style="font-size:10px; padding:0.35rem 0.9rem;">+ Add Project</button></div>
+      </div>
+      <div class="editor-card full">
+        <div class="editor-card-title">Services</div>
+        <div class="editor-list">${siteContent.services.map((_, i) => `<div class="editor-item"><div class="editor-row">${textInput('Icon Class', `services.${i}.icon`)}${textInput('Service Name', `services.${i}.name`)}${textInput('Description', `services.${i}.description`)}</div><div class="editor-row">${imageInput('Gallery Picture 1', `services.${i}.gallery.0`)}${imageInput('Gallery Picture 2', `services.${i}.gallery.1`)}${imageInput('Gallery Picture 3', `services.${i}.gallery.2`)}</div><div class="editor-actions"><button class="btn-outline" onclick="removeItem('services', ${i})" style="font-size:10px; padding:0.35rem 0.9rem;">Remove</button></div></div>`).join('')}</div>
+        <div class="editor-actions"><button class="btn-primary" onclick="addService()" style="font-size:10px; padding:0.35rem 0.9rem;">+ Add Service</button></div>
+      </div>
+      <div class="editor-card full">
+        <div class="editor-card-title">Testimonials</div>
+        <div class="editor-list">${siteContent.testimonials.map((_, i) => `<div class="editor-item"><div class="editor-row">${textInput('Avatar', `testimonials.${i}.avatar`)}${textInput('Name', `testimonials.${i}.name`)}${textInput('Title', `testimonials.${i}.title`)}</div>${textArea('Message', `testimonials.${i}.text`)}<div class="editor-actions"><button class="btn-outline" onclick="removeItem('testimonials', ${i})" style="font-size:10px; padding:0.35rem 0.9rem;">Remove</button></div></div>`).join('')}</div>
+        <div class="editor-actions"><button class="btn-primary" onclick="addTestimonial()" style="font-size:10px; padding:0.35rem 0.9rem;">+ Add Testimonial</button></div>
+      </div>
+      <div class="editor-card full">
+        <div class="editor-card-title">Blog Posts and Pictures</div>
+        <div class="editor-list">${siteContent.blogs.map((_, i) => `<div class="editor-item"><div class="editor-row">${textInput('Category', `blogs.${i}.tag`)}${textInput('Title', `blogs.${i}.title`)}${textInput('Meta', `blogs.${i}.meta`)}</div>${textInput('Icon Class', `blogs.${i}.icon`)}${imageInput('Blog Picture', `blogs.${i}.image`)}<div class="editor-actions"><button class="btn-outline" onclick="removeItem('blogs', ${i})" style="font-size:10px; padding:0.35rem 0.9rem;">Remove</button></div></div>`).join('')}</div>
+        <div class="editor-actions"><button class="btn-primary" onclick="addBlog()" style="font-size:10px; padding:0.35rem 0.9rem;">+ Add Blog</button></div>
+      </div>
+    </div>`;
+}
+
+function handleImageUpload(path, input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    setPath(path, reader.result);
+    renderContentEditor();
+    renderPublicSite();
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveSiteContent() {
+  collectEditorValues();
+  localStorage.setItem(CONTENT_KEY, JSON.stringify(siteContent));
+  renderPublicSite();
+  renderContentEditor();
+  alert('Saved. User pages are updated.');
+}
+
+function resetSiteContent() {
+  if (!confirm('Reset all editable content?')) return;
+  localStorage.removeItem(CONTENT_KEY);
+  siteContent = structuredClone(defaultSiteContent);
+  normalizeSiteContent();
+  renderPublicSite();
+  renderContentEditor();
+}
+
+function addProject() {
+  collectEditorValues();
+  siteContent.projects.push({ category: 'New Category', name: 'New Project', location: 'Location', icon: 'ti-building', image: '' });
+  renderContentEditor();
+}
+
+function addService() {
+  collectEditorValues();
+  siteContent.services.push({ icon: 'ti-pencil-ruler', name: 'New Service', description: 'Service description.', gallery: ['', '', ''] });
+  renderContentEditor();
+}
+
+function addBlog() {
+  collectEditorValues();
+  siteContent.blogs.push({ tag: 'Category', title: 'New Blog Post', meta: 'June 2026 - 3 min read', icon: 'ti-article', image: '' });
+  renderContentEditor();
+}
+
+function addTestimonial() {
+  collectEditorValues();
+  siteContent.testimonials.push({ avatar: 'CL', name: 'Client Name', title: 'Client Title', text: 'Client feedback.' });
+  renderContentEditor();
+}
+
+function removeItem(collection, index) {
+  collectEditorValues();
+  siteContent[collection].splice(index, 1);
+  renderContentEditor();
+  renderPublicSite();
+}
+
+function downloadPublicHtml() {
+  collectEditorValues();
+  renderPublicSite();
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector('#nav-admin')?.remove();
+  clone.querySelector('#page-admin')?.remove();
+  clone.querySelectorAll('script').forEach(script => script.remove());
+  clone.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  clone.querySelector('#page-home')?.classList.add('active');
+  clone.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+  clone.querySelector('#nav-home')?.classList.add('active');
+  const publicScript = clone.ownerDocument.createElement('script');
+  const publicServicesJson = JSON.stringify(siteContent.services).replace(/<\/script/gi, '<\\/script');
+  publicScript.textContent = `
+const publicServices = ${publicServicesJson};
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  const nav = document.getElementById('nav-' + name);
+  if (page) page.classList.add('active');
+  if (nav) nav.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function escapePublicHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+}
+function renderConsultationServices() {
+  const select = document.getElementById('consultation-service');
+  if (!select) return;
+  select.innerHTML = publicServices.map(service => '<option>' + escapePublicHtml(service.name) + '</option>').join('');
+}
+function showServiceGallery(index) {
+  const service = publicServices[index];
+  if (!service) return;
+  showPage('services');
+  document.querySelectorAll('#page-services .service-card').forEach((card, cardIndex) => {
+    card.classList.toggle('active', cardIndex === index);
+  });
+  const gallery = document.getElementById('service-gallery');
+  if (!gallery) return;
+  const images = (service.gallery || []).filter(Boolean);
+  gallery.classList.add('active');
+  gallery.innerHTML =
+    '<div class="service-gallery-head"><div><div class="service-gallery-title">' + escapePublicHtml(service.name) + '</div><div class="service-gallery-desc">' + escapePublicHtml(service.description) + '</div></div><button class="btn-outline" onclick="openConsultation()" style="font-size:10px; padding:0.4rem 0.9rem;">Book This Service</button></div>' +
+    '<div class="service-gallery-grid">' + [0, 1, 2].map(i => images[i] ? '<div class="service-gallery-img"><img src="' + images[i] + '" alt="' + escapePublicHtml(service.name) + ' picture"></div>' : '<div class="service-gallery-img"><i class="ti ' + escapePublicHtml(service.icon || 'ti-photo') + '" aria-hidden="true"></i></div>').join('') + '</div>';
+  renderConsultationServices();
+  const select = document.getElementById('consultation-service');
+  if (select) select.value = service.name;
+  gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function openConsultation() {
+  renderConsultationServices();
+  const modal = document.getElementById('consultation-modal');
+  if (modal) modal.classList.add('active');
+}
+function closeConsultation() {
+  const modal = document.getElementById('consultation-modal');
+  if (modal) modal.classList.remove('active');
+}
+function submitConsultation(event) {
+  event.preventDefault();
+  alert('Consultation request submitted. We will contact you soon.');
+  event.currentTarget.reset();
+  closeConsultation();
+}
+renderConsultationServices();`;
+  clone.querySelector('body')?.appendChild(publicScript);
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const safeName = (siteContent.brand.name || 'architecture-project').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  link.href = url;
+  link.download = `${safeName || 'architecture-project'}.html`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function isAdminLoggedIn() {
+  return sessionStorage.getItem(SESSION_KEY) === 'true';
+}
+
+function updateAdminLock() {
+  const adminPage = document.getElementById('page-admin');
+  adminPage.classList.toggle('admin-unlocked', isAdminLoggedIn());
+  adminPage.classList.toggle('admin-locked', !isAdminLoggedIn());
+  if (isAdminLoggedIn()) renderContentEditor();
+}
+
+function adminLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('admin-email').value.trim();
+  const password = document.getElementById('admin-password').value;
+  const error = document.getElementById('admin-login-error');
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    sessionStorage.setItem(SESSION_KEY, 'true');
+    error.style.display = 'none';
+    updateAdminLock();
+    showAdminTab('content');
+  } else {
+    error.style.display = 'block';
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  updateAdminLock();
+  showPage('home');
+}
+
+function showPage(name) {
+  if (name === 'admin') updateAdminLock();
+  if (name !== 'admin') renderPublicSite();
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  const nav = document.getElementById('nav-' + name);
+  if (page) page.classList.add('active');
+  if (nav) nav.classList.add('active');
+  if (name === 'admin' && isAdminLoggedIn()) buildBarChart();
+}
+
+function showAdminTab(tab) {
+  if (!isAdminLoggedIn()) return;
+  document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+  const tabs = ['dashboard','content','projects','blog','inquiries','appointments','users','theme','seo'];
+  tabs.forEach(t => {
+    const el = document.getElementById('admin-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+  });
+  const clicked = typeof event !== 'undefined' ? event.currentTarget : null;
+  if (clicked) clicked.classList.add('active');
+  else {
+    const index = tabs.indexOf(tab);
+    const item = document.querySelectorAll('.admin-nav-item')[index];
+    if (item) item.classList.add('active');
+  }
+  if (tab === 'content') renderContentEditor();
+  if (tab === 'dashboard') buildBarChart();
+}
+
+function buildBarChart() {
+  const data = [42, 67, 55, 88, 72, 95, 110, 98, 120, 105, 130, 127];
+  const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  const maxVal = Math.max(...data);
+  const chart = document.getElementById('barChart');
+  const labels = document.getElementById('barLabels');
+  if (!chart || !labels) return;
+  chart.innerHTML = '';
+  labels.innerHTML = '';
+  data.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = Math.round((v / maxVal) * 100) + '%';
+    bar.title = v + ' inquiries';
+    chart.appendChild(bar);
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-label';
+    lbl.textContent = months[i];
+    labels.appendChild(lbl);
+  });
+}
+
+renderPublicSite();
+updateAdminLock();
+buildBarChart();
+</script>
